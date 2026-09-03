@@ -225,7 +225,7 @@
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_subject" value="New enquiry from the Tonghe website">
-        <input type="hidden" name="_next" id="form-next" value="">
+        <input type="hidden" name="_next" value="https://grigoryartazyan.github.io/tonghe_world_website/?sent=1">
         <div>
           <label for="name" class="block text-sm font-medium text-navy-900 mb-1">Name</label>
           <input required id="name" name="name" type="text" autocomplete="name" class="w-full rounded-md border border-navy-900/15 bg-white px-4 py-3 focus:border-rust-600">
@@ -310,10 +310,7 @@
   const form = document.getElementById('contact-form');
   const status = document.getElementById('form-status');
   const submitBtn = form.querySelector('button[type="submit"]');
-  const nextInput = document.getElementById('form-next');
   const DEST_EMAIL = 'hello@tonghepower.com';
-
-  nextInput.value = `${location.origin}${location.pathname}?sent=1#contact`;
 
   if (new URLSearchParams(location.search).get('sent') === '1') {
     status.textContent = "Message sent. We'll be in touch.";
