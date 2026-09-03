@@ -9,78 +9,9 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          navy: { 900: '#1B2436', 800: '#232E44', 700: '#2C3A56' },
-          cream: { 50: '#FAF7EF', 100: '#F3EDE0' },
-          rust: { 600: '#AD5A2C', 700: '#8C4620', 100: '#F0DCC9' },
-          ink: '#21262F',
-          steel: '#6B7280',
-        },
-        fontFamily: {
-          mono: ['"Space Mono"', 'monospace'],
-          sans: ['"IBM Plex Sans"', 'sans-serif'],
-        },
-      },
-    },
-  };
-</script>
-
-<style>
-  html { scroll-behavior: smooth; }
-  body { font-family: 'IBM Plex Sans', sans-serif; color: #21262F; }
-  h1, h2, h3, .font-display { font-family: 'Space Mono', monospace; }
-
-  :focus-visible {
-    outline: 2px solid #AD5A2C;
-    outline-offset: 3px;
-  }
-
-  .grid-pulse circle {
-    animation: pulse 3.2s ease-in-out infinite;
-  }
-  .grid-pulse circle:nth-child(2) { animation-delay: 0.9s; }
-  .grid-pulse circle:nth-child(3) { animation-delay: 1.8s; }
-  .grid-pulse circle:nth-child(4) { animation-delay: 2.4s; }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 0.25; r: 3; }
-    50% { opacity: 0.9; r: 5; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    .grid-pulse circle { animation: none; opacity: 0.6; }
-  }
-
-  .nav-link {
-    position: relative;
-  }
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    left: 0; bottom: -4px;
-    width: 0; height: 1px;
-    background: #AD5A2C;
-    transition: width 0.2s ease;
-  }
-  .nav-link:hover::after { width: 100%; }
-
-  #mobile-menu {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-  }
-  #mobile-menu.open { max-height: 400px; }
-
-  .stat-figure { font-variant-numeric: tabular-nums; }
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="bg-cream-50 text-ink antialiased">
@@ -99,7 +30,7 @@
         <a href="#project" class="nav-link">A Project</a>
         <a href="#process" class="nav-link">How We Work</a>
         <a href="#who" class="nav-link">Who We Are</a>
-        <a href="#contact" class="ml-2 inline-flex items-center rounded-full bg-rust-600 hover:bg-rust-700 transition-colors px-4 py-2 text-cream-50 font-medium">
+        <a href="#contact" class="ml-2 inline-flex items-center rounded-full bg-rust-600 hover:bg-rust-700 transition-colors px-4 py-2 text-cream-50 font-bold uppercase tracking-wide text-xs">
           Start a conversation
         </a>
       </nav>
@@ -116,7 +47,7 @@
         <a href="#project" class="menu-close-link">A Project</a>
         <a href="#process" class="menu-close-link">How We Work</a>
         <a href="#who" class="menu-close-link">Who We Are</a>
-        <a href="#contact" class="menu-close-link inline-flex w-fit items-center rounded-full bg-rust-600 px-4 py-2 text-cream-50 font-medium">Start a conversation</a>
+        <a href="#contact" class="menu-close-link inline-flex w-fit items-center rounded-full bg-rust-600 px-4 py-2 text-cream-50 font-bold uppercase tracking-wide text-xs">Start a conversation</a>
       </nav>
     </div>
   </div>
@@ -124,29 +55,17 @@
 
 <!-- ================= HERO ================= -->
 <section id="top" class="relative bg-navy-900 text-cream-50 overflow-hidden">
-  <svg class="grid-pulse absolute inset-0 w-full h-full opacity-40 pointer-events-none" preserveAspectRatio="xMidYMid slice" viewBox="0 0 800 500" aria-hidden="true">
-    <g stroke="#3A4763" stroke-width="1">
-      <line x1="0" y1="90" x2="800" y2="90"/>
-      <line x1="0" y1="220" x2="800" y2="180"/>
-      <line x1="0" y1="380" x2="800" y2="340"/>
-      <line x1="120" y1="0" x2="180" y2="500"/>
-      <line x1="480" y1="0" x2="420" y2="500"/>
-      <line x1="700" y1="0" x2="760" y2="500"/>
-    </g>
-    <g fill="#C97F45">
-      <circle cx="180" cy="90" r="3"/>
-      <circle cx="420" cy="180" r="3"/>
-      <circle cx="760" cy="340" r="3"/>
-      <circle cx="120" cy="380" r="3"/>
-    </g>
-  </svg>
+  <img src="images/logo-watermark.png" alt="" aria-hidden="true"
+    class="hero-mark absolute pointer-events-none select-none opacity-[0.16]"
+    style="width: clamp(320px, 40vw, 620px); right: -6%; top: 50%; transform: translateY(-50%);">
+
 
   <div class="relative max-w-6xl mx-auto px-6 pt-24 pb-28 sm:pt-32 sm:pb-36">
     <p class="font-display text-xs sm:text-sm tracking-[0.15em] text-rust-100/60 mb-6">TONGHE ELECTRIC POWER</p>
-    <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl leading-[1.08] max-w-3xl">
+    <h1 class="text-4xl sm:text-5xl lg:text-6xl leading-[1.08] max-w-3xl font-normal">
       Powering systems and human potential
     </h1>
-    <a href="#contact" class="mt-10 inline-flex items-center rounded-full bg-rust-600 hover:bg-rust-700 transition-colors px-6 py-3 text-cream-50 font-medium">
+    <a href="#contact" class="mt-10 inline-flex items-center rounded-full bg-rust-600 hover:bg-rust-700 transition-colors px-6 py-3 text-cream-50 font-bold uppercase tracking-wide text-sm">
       Start a conversation
     </a>
   </div>
@@ -168,11 +87,11 @@
   <div class="bg-navy-900">
     <div class="max-w-6xl mx-auto px-6 py-16 grid sm:grid-cols-2 gap-6">
       <div class="bg-cream-50 rounded-lg p-8 shadow-[0_1px_0_rgba(255,255,255,0.4)_inset]">
-        <h3 class="font-display font-bold text-xl text-navy-900 mb-3">Transmission line online monitoring</h3>
+        <h3 class="font-bold text-xl text-navy-900 mb-3">Transmission line online monitoring</h3>
         <p class="text-steel">Continuous condition data from live lines, so crews inspect what needs inspecting.</p>
       </div>
       <div class="bg-cream-50 rounded-lg p-8">
-        <h3 class="font-display font-bold text-xl text-navy-900 mb-3">Underground cable inspection robotics</h3>
+        <h3 class="font-bold text-xl text-navy-900 mb-3">Underground cable inspection robotics</h3>
         <p class="text-steel">Survey and monitoring in confined below-grade environments where access is slow, costly, or unsafe.</p>
       </div>
     </div>
@@ -182,38 +101,38 @@
 <!-- ================= PROJECT IN DETAIL ================= -->
 <section id="project" class="bg-cream-50">
   <div class="max-w-6xl mx-auto px-6 py-20 sm:py-28">
-    <h2 class="font-display font-bold text-2xl sm:text-3xl text-navy-900 mb-10">A project, in detail</h2>
+    <h2 class="font-normal text-2xl sm:text-3xl text-navy-900 mb-10">A project, in detail</h2>
 
     <div class="grid lg:grid-cols-[1fr_1.4fr] gap-12 lg:gap-16">
       <div>
-        <p class="font-display text-sm tracking-wide text-rust-700">CLIENT: PROVINCIAL GRID OPERATOR</p>
-        <p class="text-steel mt-1">2016</p>
+        <p class="font-bold text-sm text-rust-700">Client: <span class="uppercase">Provincial Grid Operator</span></p>
+        <p class="text-steel italic mt-1">2016</p>
 
         <dl class="grid grid-cols-2 gap-6 mt-10">
           <div>
             <dt class="text-steel text-sm">Weekly patrol hours, before</dt>
-            <dd class="stat-figure font-display font-bold text-3xl text-navy-900" data-count-to="40">0</dd>
+            <dd class="stat-figure font-bold text-3xl text-navy-900" data-count-to="40">0</dd>
           </div>
           <div>
             <dt class="text-steel text-sm">Checkpoints per patrol</dt>
-            <dd class="stat-figure font-display font-bold text-3xl text-navy-900" data-count-to="60">0</dd>
+            <dd class="stat-figure font-bold text-3xl text-navy-900" data-count-to="60">0</dd>
           </div>
           <div>
             <dt class="text-steel text-sm">Rise in thermal-fault detection</dt>
-            <dd class="stat-figure font-display font-bold text-3xl text-navy-900"><span data-count-to="60">0</span>%</dd>
+            <dd class="stat-figure font-bold text-3xl text-navy-900"><span data-count-to="60">0</span>%</dd>
           </div>
           <div>
             <dt class="text-steel text-sm">Years the unit's still running</dt>
-            <dd class="stat-figure font-display font-bold text-3xl text-navy-900" data-count-to="10">0</dd>
+            <dd class="stat-figure font-bold text-3xl text-navy-900" data-count-to="10">0</dd>
           </div>
         </dl>
       </div>
 
       <div class="space-y-5 text-lg leading-relaxed">
-        <p>Manual substation patrols were dangerous, and consuming 40 hours a week.</p>
-        <p class="text-steel">A 330kV substation required twice-daily visual and thermal inspection across 60 checkpoints. Commercial patrol robots on the market weren't built for substation safety protocols, and none integrated with the operator's existing monitoring system.</p>
-        <p class="font-medium text-navy-900">We built a tracked patrol unit with a stabilized thermal and visual head, routed against the operator's existing checkpoint map.</p>
-        <p class="font-medium text-navy-900">Patrol labour replaced. Thermal abnormalities detection rate increased by 60%.</p>
+        <p class="italic">Manual substation patrols were dangerous, and consuming 40 hours a week.</p>
+        <p class="text-steel italic">A 330kV substation required twice-daily visual and thermal inspection across 60 checkpoints. Commercial patrol robots on the market weren't built for substation safety protocols, and none integrated with the operator's existing monitoring system.</p>
+        <p class="font-medium text-navy-900 italic">We built a tracked patrol unit with a stabilized thermal and visual head, routed against the operator's existing checkpoint map.</p>
+        <p class="font-bold text-navy-900 italic">Patrol labour replaced. Thermal abnormalities detection rate increased by 60%.</p>
         <p class="italic text-steel border-l-2 border-rust-600 pl-4">Ten years on, we still maintain that unit. It's the reason the data is still worth trusting.</p>
       </div>
     </div>
@@ -223,27 +142,24 @@
 <!-- ================= HOW WE WORK ================= -->
 <section id="process" class="bg-rust-600 text-cream-50">
   <div class="max-w-6xl mx-auto px-6 py-20 sm:py-28">
-    <h2 class="font-display font-bold text-2xl sm:text-3xl mb-14">How we work</h2>
+    <h2 class="font-display font-normal text-2xl sm:text-3xl mb-14">How we work</h2>
 
-    <div class="grid md:grid-cols-3 gap-10">
+    <div class="grid md:grid-cols-3 gap-10 text-center">
       <div>
         <img src="images/meeting.jpg" alt="Team reviewing site plans and inspection routes around a table" class="w-full h-40 object-cover rounded-lg mb-5" loading="lazy">
-        <p class="font-display text-sm text-navy-900/70 mb-2">01</p>
-        <h3 class="font-display font-bold text-lg mb-3">You surface the pain point.</h3>
+        <h3 class="font-bold text-lg mb-3 uppercase">1. You surface the pain point.</h3>
         <p class="text-cream-50/85">A failure mode, an inspection route that costs too much, a site nobody wants to send a person into.</p>
       </div>
 
       <div>
         <img src="images/monitoring.jpg" alt="Engineer reviewing CAD models and equipment schematics on dual monitors" class="w-full h-40 object-cover rounded-lg mb-5" loading="lazy">
-        <p class="font-display text-sm text-navy-900/70 mb-2">02</p>
-        <h3 class="font-display font-bold text-lg mb-3">We scope it against field reality.</h3>
+        <h3 class="font-bold text-lg mb-3 uppercase">2. We scope it against field reality.</h3>
         <p class="text-cream-50/85">Thirty years in the industry means we know which elegant solutions don't survive contact with a substation.</p>
       </div>
 
       <div>
         <img src="images/workshop.jpg" alt="Engineers assembling a tracked patrol robot on a workshop bench" class="w-full h-40 object-cover rounded-lg mb-5" loading="lazy">
-        <p class="font-display text-sm text-navy-900/70 mb-2">03</p>
-        <h3 class="font-display font-bold text-lg mb-3">We build equipment &amp; stay.</h3>
+        <h3 class="font-bold text-lg mb-3 uppercase">3. We build equipment &amp; stay.</h3>
         <p class="text-cream-50/85">Custom equipment, tested against your operating conditions. We maintain what we build, for as long as it's in service.</p>
       </div>
     </div>
@@ -253,14 +169,14 @@
 <!-- ================= WHO WE ARE ================= -->
 <section id="who" class="bg-cream-100">
   <div class="max-w-6xl mx-auto px-6 py-20 sm:py-28">
-    <h2 class="font-display font-bold text-2xl sm:text-3xl text-navy-900 mb-14">Who we are</h2>
+    <h2 class="font-display font-normal text-2xl sm:text-3xl text-navy-900 mb-14">Who we are</h2>
 
     <div class="grid sm:grid-cols-2 gap-10">
       <div class="flex gap-5">
         <div class="shrink-0 w-14 h-14 rounded-full bg-navy-900 text-cream-50 flex items-center justify-center font-display font-bold">HT</div>
         <div>
-          <h3 class="font-display font-bold text-lg text-navy-900">Hui (Annie) Tao</h3>
-          <p class="text-rust-700 text-sm mb-3">Founder</p>
+          <h3 class="font-display font-bold uppercase text-lg text-rust-700">Hui (Annie) Tao</h3>
+          <p class="text-steel italic text-sm mb-3">Founder</p>
           <p class="text-steel">Mechanical engineer. Thirty years in power. Mother, entrepreneur, and the engineering judgment behind every Tonghe build.</p>
           <p class="text-steel mt-3">Hui started Tonghe in 2015 with a small group of grid specialists and research partners. The work has been the same since: take what an operator actually needs, and make it exist.</p>
         </div>
@@ -269,8 +185,8 @@
       <div class="flex gap-5">
         <div class="shrink-0 w-14 h-14 rounded-full bg-navy-900 text-cream-50 flex items-center justify-center font-display font-bold">CP</div>
         <div>
-          <h3 class="font-display font-bold text-lg text-navy-900">Cyndi Peng</h3>
-          <p class="text-rust-700 text-sm mb-3">Strategic Growth, North America</p>
+          <h3 class="font-display font-bold uppercase text-lg text-rust-700">Cyndi Peng</h3>
+          <p class="text-steel italic text-sm mb-3">Strategic Growth, North America</p>
           <p class="text-steel">Cyndi leads North American partnerships. She's usually the first person you'll talk to, and she'll stay involved after that.</p>
         </div>
       </div>
@@ -287,17 +203,17 @@
     </p>
   </div>
   <div class="bg-navy-900 text-cream-50 px-6 py-16 sm:py-20 flex items-center">
-    <h2 class="font-display font-bold text-3xl sm:text-4xl">Our Story</h2>
+    <h2 class="font-display font-normal text-3xl sm:text-4xl">Our Story</h2>
   </div>
 </section>
 
 <!-- ================= CONTACT ================= -->
 <section id="contact" class="bg-cream-50">
   <div class="max-w-6xl mx-auto px-6 py-20 sm:py-28">
-    <p class="font-display text-xs tracking-[0.15em] text-rust-700 mb-3">CONTACT US</p>
+    <p class="font-display font-bold text-xs tracking-[0.15em] text-rust-700 mb-3">CONTACT US</p>
     <div class="grid lg:grid-cols-2 gap-12 lg:gap-20">
       <div>
-        <h2 class="font-display font-bold text-2xl sm:text-3xl text-navy-900 mb-4">Tell us what you're trying to solve.</h2>
+        <h2 class="font-normal text-2xl sm:text-3xl text-navy-900 mb-4">Tell us what you're trying to solve.</h2>
         <p class="italic text-steel text-lg mb-8">We'll tell you honestly whether we're the right people to build it.</p>
 
         <p class="text-steel">The fastest route is a direct email.<br>Tell us the problem you're working on and we'll come back with questions.</p>
@@ -318,7 +234,7 @@
           <label for="message" class="block text-sm font-medium text-navy-900 mb-1">What are you trying to solve?</label>
           <textarea required id="message" name="message" rows="4" class="w-full rounded-md border border-navy-900/15 bg-white px-4 py-3 focus:border-rust-600"></textarea>
         </div>
-        <button type="submit" class="inline-flex items-center rounded-full bg-rust-600 hover:bg-rust-700 transition-colors px-6 py-3 text-cream-50 font-medium">
+        <button type="submit" class="inline-flex items-center rounded-full bg-rust-600 hover:bg-rust-700 transition-colors px-6 py-3 text-cream-50 font-bold uppercase tracking-wide text-sm">
           Start a conversation
         </button>
         <p id="form-status" class="text-sm text-steel" role="status"></p>
