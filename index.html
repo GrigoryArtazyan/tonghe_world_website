@@ -217,11 +217,15 @@
 
         <p class="text-steel">The fastest route is a direct email.<br>Tell us the problem you're working on and we'll come back with questions.</p>
 
-        <img src="images/logo-icon.png" alt="Tonghe Electric Power monogram" class="w-14 h-14 mt-10 opacity-90" loading="lazy">
+        <img src="images/logo-icon.png" alt="Tonghe Electric Power monogram" class="contact-mark mt-10" loading="lazy">
       </div>
 
-      <form id="contact-form" class="space-y-5">
+      <form id="contact-form" action="https://formsubmit.co/hello@tonghepower.com" method="POST" class="space-y-5">
         <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_subject" value="New enquiry from the Tonghe website">
+        <input type="hidden" name="_next" id="form-next" value="">
         <div>
           <label for="name" class="block text-sm font-medium text-navy-900 mb-1">Name</label>
           <input required id="name" name="name" type="text" autocomplete="name" class="w-full rounded-md border border-navy-900/15 bg-white px-4 py-3 focus:border-rust-600">
@@ -302,49 +306,46 @@
 
   counters.forEach(el => observer.observe(el));
 
-  // Contact form — posts to FormSubmit, inbox: hello@tonghepower.com
+  // Contact form — sends to hello@tonghepower.com via FormSubmit (no mail app)
   const form = document.getElementById('contact-form');
   const status = document.getElementById('form-status');
   const submitBtn = form.querySelector('button[type="submit"]');
+  const nextInput = document.getElementById('form-next');
   const DEST_EMAIL = 'hello@tonghepower.com';
+
+  nextInput.value = `${location.origin}${location.pathname}?sent=1#contact`;
+
+  if (new URLSearchParams(location.search).get('sent') === '1') {
+    status.textContent = "Message sent. We'll be in touch.";
+    history.replaceState(null, '', `${location.pathname}${location.hash || '#contact'}`);
+  }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (form._honey.value) return;
 
     const name = form.name.value.trim();
-    const email = form.email.value.trim();
-    const message = form.message.value.trim();
-
     submitBtn.disabled = true;
     status.textContent = 'Sending…';
+
+    const payload = new FormData(form);
+    payload.set('_subject', `New enquiry from ${name}`);
 
     try {
       const res = await fetch(`https://formsubmit.co/ajax/${DEST_EMAIL}`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          message,
-          _subject: `New enquiry from ${name}`,
-          _captcha: 'false',
-          _template: 'table',
-        }),
+        headers: { 'Accept': 'application/json' },
+        body: payload,
       });
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (!res.ok || data.success === false || data.success === 'false') {
         throw new Error(data.message || 'Send failed');
       }
       form.reset();
       status.textContent = "Message sent. We'll be in touch.";
-    } catch {
-      status.textContent = `Couldn't send just now. Email us at ${DEST_EMAIL}.`;
-    } finally {
       submitBtn.disabled = false;
+    } catch {
+      form.submit();
     }
   });
 </script>
