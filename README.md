@@ -19,4 +19,4 @@ index.html      # full page
 images/         # photos and logo
 ```
 
-Contact form opens a `mailto:` draft. Update the destination email in `index.html` before going live.
+The contact form sends straight to `hello@tonghepower.com` (no mail app). The first live submission sends a one-time confirmation to that inbox — click it so messages start arriving.

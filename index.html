@@ -55,9 +55,8 @@
 
 <!-- ================= HERO ================= -->
 <section id="top" class="relative bg-navy-900 text-cream-50 overflow-hidden">
-  <img src="images/logo-watermark.png" alt="" aria-hidden="true"
-    class="hero-mark absolute pointer-events-none select-none opacity-[0.16]"
-    style="width: clamp(320px, 40vw, 620px); right: -6%; top: 50%; transform: translateY(-50%);">
+  <img src="images/logo_original.png" alt="" aria-hidden="true"
+    class="hero-mark absolute pointer-events-none select-none">
 
 
   <div class="relative max-w-6xl mx-auto px-6 pt-24 pb-28 sm:pt-32 sm:pb-36">
@@ -222,13 +221,14 @@
       </div>
 
       <form id="contact-form" class="space-y-5">
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
         <div>
           <label for="name" class="block text-sm font-medium text-navy-900 mb-1">Name</label>
-          <input required id="name" name="name" type="text" class="w-full rounded-md border border-navy-900/15 bg-white px-4 py-3 focus:border-rust-600">
+          <input required id="name" name="name" type="text" autocomplete="name" class="w-full rounded-md border border-navy-900/15 bg-white px-4 py-3 focus:border-rust-600">
         </div>
         <div>
           <label for="email" class="block text-sm font-medium text-navy-900 mb-1">Email</label>
-          <input required id="email" name="email" type="email" class="w-full rounded-md border border-navy-900/15 bg-white px-4 py-3 focus:border-rust-600">
+          <input required id="email" name="email" type="email" autocomplete="email" class="w-full rounded-md border border-navy-900/15 bg-white px-4 py-3 focus:border-rust-600">
         </div>
         <div>
           <label for="message" class="block text-sm font-medium text-navy-900 mb-1">What are you trying to solve?</label>
@@ -302,22 +302,50 @@
 
   counters.forEach(el => observer.observe(el));
 
-  // Contact form — composes a mailto (no backend in this static build)
+  // Contact form — posts to FormSubmit, inbox: hello@tonghepower.com
   const form = document.getElementById('contact-form');
   const status = document.getElementById('form-status');
-  const DEST_EMAIL = 'hello@tonghepower.com'; // TODO: replace with your real inbox
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const DEST_EMAIL = 'hello@tonghepower.com';
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (form._honey.value) return;
+
     const name = form.name.value.trim();
     const email = form.email.value.trim();
     const message = form.message.value.trim();
 
-    const subject = encodeURIComponent(`New enquiry from ${name}`);
-    const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
-    window.location.href = `mailto:${DEST_EMAIL}?subject=${subject}&body=${body}`;
+    submitBtn.disabled = true;
+    status.textContent = 'Sending…';
 
-    status.textContent = "Opening your email client — send it off and we'll be in touch.";
+    try {
+      const res = await fetch(`https://formsubmit.co/ajax/${DEST_EMAIL}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+          _subject: `New enquiry from ${name}`,
+          _captcha: 'false',
+          _template: 'table',
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok || data.success === false || data.success === 'false') {
+        throw new Error(data.message || 'Send failed');
+      }
+      form.reset();
+      status.textContent = "Message sent. We'll be in touch.";
+    } catch {
+      status.textContent = `Couldn't send just now. Email us at ${DEST_EMAIL}.`;
+    } finally {
+      submitBtn.disabled = false;
+    }
   });
 </script>
 
