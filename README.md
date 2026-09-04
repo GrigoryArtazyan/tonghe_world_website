@@ -19,4 +19,4 @@ index.html      # full page
 images/         # photos and logo
 ```
 
-The contact form sends straight to `hello@tonghepower.com` (no mail app). The first live submission sends a one-time confirmation to that inbox — click it so messages start arriving.
+The contact form sends to `info@tonghe.world` (no mail app). The first live submission sends a one-time confirmation to that inbox — click it so messages start arriving.
