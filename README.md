@@ -4,7 +4,7 @@ Marketing site for Tonghe Electric Power — custom transmission-line monitoring
 
 **Visit:** https://tonghe.world/
 
-![Tonghe Electric Power](images/tonghe-hero.jpg)
+![Tonghe Electric Power](images/tonghe-hero.png)
 
 Static HTML. No build step.
 
