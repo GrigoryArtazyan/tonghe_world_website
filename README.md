@@ -2,6 +2,10 @@
 
 Marketing site for Tonghe Electric Power — custom transmission-line monitoring and underground cable inspection equipment.
 
+**Visit:** https://tonghe.world/
+
+![Tonghe Electric Power](images/tonghe-hero.jpg)
+
 Static HTML. No build step.
 
 ## Run locally
