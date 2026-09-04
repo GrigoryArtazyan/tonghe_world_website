@@ -239,22 +239,35 @@
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_subject" value="New enquiry from the Tonghe website">
         <input type="hidden" name="_next" value="https://grigoryartazyan.github.io/tonghe_world_website/?sent=1">
-        <div>
-          <label for="name" class="block text-sm font-medium text-navy-900 mb-1">Name</label>
-          <input required id="name" name="name" type="text" autocomplete="name" class="w-full rounded-md border border-navy-900/15 bg-white px-4 py-3 focus:border-rust-600">
+
+        <div id="form-fields" class="space-y-5">
+          <div>
+            <label for="name" class="block text-sm font-medium text-navy-900 mb-1">Name</label>
+            <input required id="name" name="name" type="text" autocomplete="name" class="w-full rounded-md border border-navy-900/15 bg-white px-4 py-3 focus:border-rust-600">
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-navy-900 mb-1">Email</label>
+            <input required id="email" name="email" type="email" autocomplete="email" class="w-full rounded-md border border-navy-900/15 bg-white px-4 py-3 focus:border-rust-600">
+          </div>
+          <div>
+            <label for="message" class="block text-sm font-medium text-navy-900 mb-1">What are you trying to solve?</label>
+            <textarea required id="message" name="message" rows="4" class="w-full rounded-md border border-navy-900/15 bg-white px-4 py-3 focus:border-rust-600"></textarea>
+          </div>
+          <button type="submit" class="inline-flex items-center rounded-full bg-rust-600 hover:bg-rust-700 transition-colors px-6 py-3 text-cream-50 font-bold uppercase tracking-wide text-sm">
+            Start a conversation
+          </button>
+          <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
         </div>
-        <div>
-          <label for="email" class="block text-sm font-medium text-navy-900 mb-1">Email</label>
-          <input required id="email" name="email" type="email" autocomplete="email" class="w-full rounded-md border border-navy-900/15 bg-white px-4 py-3 focus:border-rust-600">
+
+        <div id="form-success" class="form-success" hidden role="status" aria-live="polite">
+          <div class="form-success-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <p class="form-success-title">Message sent</p>
+          <p class="form-success-text">We'll be in touch.</p>
         </div>
-        <div>
-          <label for="message" class="block text-sm font-medium text-navy-900 mb-1">What are you trying to solve?</label>
-          <textarea required id="message" name="message" rows="4" class="w-full rounded-md border border-navy-900/15 bg-white px-4 py-3 focus:border-rust-600"></textarea>
-        </div>
-        <button type="submit" class="inline-flex items-center rounded-full bg-rust-600 hover:bg-rust-700 transition-colors px-6 py-3 text-cream-50 font-bold uppercase tracking-wide text-sm">
-          Start a conversation
-        </button>
-        <p id="form-status" class="text-sm text-steel" role="status"></p>
       </form>
     </div>
   </div>
@@ -321,12 +334,21 @@
 
   // Contact form — sends to info@tonghe.world via FormSubmit (no mail app)
   const form = document.getElementById('contact-form');
+  const formFields = document.getElementById('form-fields');
+  const formSuccess = document.getElementById('form-success');
   const status = document.getElementById('form-status');
   const submitBtn = form.querySelector('button[type="submit"]');
   const DEST_EMAIL = 'info@tonghe.world';
 
+  function showFormSuccess() {
+    formFields.hidden = true;
+    formSuccess.hidden = false;
+    status.textContent = '';
+    requestAnimationFrame(() => formSuccess.classList.add('is-visible'));
+  }
+
   if (new URLSearchParams(location.search).get('sent') === '1') {
-    status.textContent = "Message sent. We'll be in touch.";
+    showFormSuccess();
     history.replaceState(null, '', `${location.pathname}${location.hash || '#contact'}`);
   }
 
@@ -352,8 +374,7 @@
         throw new Error(data.message || 'Send failed');
       }
       form.reset();
-      status.textContent = "Message sent. We'll be in touch.";
-      submitBtn.disabled = false;
+      showFormSuccess();
     } catch {
       form.submit();
     }
